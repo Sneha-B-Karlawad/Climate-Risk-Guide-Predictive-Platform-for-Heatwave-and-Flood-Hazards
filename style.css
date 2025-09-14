@@ -1,17 +1,16 @@
-/* Background with pastel gradient */
+
 .stApp {
     background: linear-gradient(to bottom right, #f8e9f4, #e6f0ff, #ffeaea);
     color: #333;
     font-family: 'Segoe UI', sans-serif;
 }
 
-/* Headers */
+
 h1, h2, h3 {
     color: #6a1b9a !important;
     text-align: center;
 }
 
-/* Buttons */
 .stButton>button {
     background-color: #a29bfe;
     color: rgb(237, 200, 239);
@@ -26,7 +25,6 @@ h1, h2, h3 {
     background-color: #6c5ce7;
 }
 
-/* Result Cards */
 .result-card {
     padding: 20px;
     border-radius: 15px;
@@ -44,7 +42,6 @@ h1, h2, h3 {
     background: linear-gradient(135deg, #fab1a0, #ff7675);
 }
 
-/* Confidence bars */
 .confidence-bar {
     margin-top: 10px;
     background-color: #ead1d1;

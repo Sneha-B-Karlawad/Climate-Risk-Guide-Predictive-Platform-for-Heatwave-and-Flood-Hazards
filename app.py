@@ -6,36 +6,24 @@ import matplotlib.pyplot as plt
 import io
 import base64
 
-# =========================================
-# Page Config
-# =========================================
 st.set_page_config(
     page_title="Climate Risk Guide Platform",
     layout="wide",
     page_icon="🌍"
 )
 
-# =========================================
-# Load Models & Scalers
-# =========================================
 rf_flood = joblib.load("rf_flood.pkl")
 scaler_flood = joblib.load("scaler_flood.pkl")
 
 rf_heat = joblib.load("rf_heatwave.pkl")
 scaler_heat = joblib.load("scaler_heatwave.pkl")
 
-# =========================================
-# Load External CSS
-# =========================================
 def local_css(file_name):
     with open(file_name) as f:
         st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
 
 local_css("style.css")
 
-# =========================================
-# Title & Intro
-# =========================================
 st.markdown("<h1 style='text-align:center;'>🌍 Climate Risk Guide: Flood & Heatwave Hazards</h1>", unsafe_allow_html=True)
 st.markdown(
     "<p style='text-align:center; font-size:18px;'>"
@@ -44,12 +32,9 @@ st.markdown(
     unsafe_allow_html=True
 )
 
-# =========================================
-# Sidebar Inputs
-# =========================================
 st.sidebar.header("⚙️ Input Parameters")
 
-# --- Flood Inputs ---
+
 with st.sidebar.expander("🌊 Flood Features", expanded=True):
     flood_input = {
         "MonsoonIntensity": st.slider("Monsoon Intensity", 1, 10, 5),
@@ -75,7 +60,7 @@ with st.sidebar.expander("🌊 Flood Features", expanded=True):
     }
 flood_input_df = pd.DataFrame([flood_input])
 
-# --- Heatwave Inputs ---
+
 with st.sidebar.expander("🔥 Heatwave Features", expanded=True):
     heat_input = {
         "wind_speed": st.slider("Wind Speed (km/h)", 0, 100, 10),
@@ -95,11 +80,9 @@ with st.sidebar.expander("🔥 Heatwave Features", expanded=True):
     }
 heat_input_df = pd.DataFrame([heat_input])
 
-# =========================================
-# Helper Function: Bigger Chart
-# =========================================
+
 def bigger_chart(title, labels, values, colors):
-    fig, ax = plt.subplots(figsize=(2.5, 2.5))  # slightly bigger
+    fig, ax = plt.subplots(figsize=(2.5, 2.5))  
     ax.bar(labels, values, color=colors, width=0.4)
     ax.set_ylim(0, 100)
     ax.set_ylabel("%", fontsize=12)
@@ -115,9 +98,7 @@ def display_centered_image(buf):
     img_base64 = base64.b64encode(buf.getvalue()).decode()
     st.markdown(f"<div style='text-align:center;'><img src='data:image/png;base64,{img_base64}'></div>", unsafe_allow_html=True)
 
-# =========================================
-# Flood Prediction
-# =========================================
+
 st.markdown("---")
 st.subheader("🌊 Flood Risk Prediction")
 
@@ -142,9 +123,7 @@ if st.button("Predict Flood Risk", type="primary"):
     buf = bigger_chart("Flood Risk", ["Low", "High"], [prob_f[0]*100, prob_f[1]*100], ["#a3cef1", "#6fa8dc"])
     display_centered_image(buf)
 
-# =========================================
-# Heatwave Prediction
-# =========================================
+
 st.markdown("---")
 st.subheader("🔥 Heatwave Risk Prediction")
 
